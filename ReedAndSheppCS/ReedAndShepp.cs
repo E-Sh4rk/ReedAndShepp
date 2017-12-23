@@ -20,6 +20,10 @@ namespace ReedAndShepp
             [DllImport("ReedAndSheppDll.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
+
+            // void change_radcurv(double radcurv)
+            [DllImport("ReedAndSheppDll.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void change_radcurv(double radcurv);
         }
         static class X64
         {
@@ -32,6 +36,10 @@ namespace ReedAndShepp
             [DllImport("ReedAndSheppDll64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
+
+            // void change_radcurv(double radcurv)
+            [DllImport("ReedAndSheppDll64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void change_radcurv(double radcurv);
         }
 
         delegate double RS(double x1, double y1, double t1, double x2, double y2, double t2,
@@ -42,8 +50,8 @@ namespace ReedAndShepp
         RS reed_shepp;
         cRS constRS;
 
-        public ReedAndShepp() : this(null) { }
-        public ReedAndShepp(string folder)
+        public ReedAndShepp(double radius) : this(radius, null) { }
+        public ReedAndShepp(double radius, string folder)
         {
             if (folder != null)
                 Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH") + ";" + Path.GetFullPath(folder));
@@ -51,11 +59,13 @@ namespace ReedAndShepp
             {
                 reed_shepp = X64.reed_shepp;
                 constRS = X64.constRS;
+                X64.change_radcurv(radius);
             }
             else
             {
                 reed_shepp = X86.reed_shepp;
                 constRS = X86.constRS;
+                X86.change_radcurv(radius);
             }
         }
 
