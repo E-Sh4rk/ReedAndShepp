@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ReedAndShepp
 {
-    class ReedAndShepp
+    public class ReedAndShepp
     {
         static class X86
         {
@@ -15,7 +16,7 @@ namespace ReedAndShepp
             public static extern double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
-            //int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
+            // int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
             [DllImport("ReedAndSheppDll.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
@@ -27,7 +28,7 @@ namespace ReedAndShepp
             public static extern double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
-            //int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
+            // int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
             [DllImport("ReedAndSheppDll64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
@@ -41,9 +42,12 @@ namespace ReedAndShepp
         RS reed_shepp;
         cRS constRS;
 
-        public ReedAndShepp()
+        public ReedAndShepp() : this(null) { }
+        public ReedAndShepp(string folder)
         {
-            if (Environment.Is64BitProcess)
+            if (folder != null)
+                Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH") + ";" + Path.GetFullPath(folder));
+            if (/*Environment.Is64BitProcess*/IntPtr.Size == 8)
             {
                 reed_shepp = X64.reed_shepp;
                 constRS = X64.constRS;
