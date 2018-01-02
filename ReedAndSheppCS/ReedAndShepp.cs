@@ -50,11 +50,24 @@ namespace ReedAndShepp
         RS reed_shepp;
         cRS constRS;
 
+        public static void SetDllFolder(string folder)
+        {
+            if (folder == null)
+                return;
+            try
+            {
+                folder = Path.GetFullPath(folder);
+                string current_path = Environment.GetEnvironmentVariable("PATH");
+                if (!current_path.Contains(folder))
+                    Environment.SetEnvironmentVariable("PATH", current_path + ";" + folder);
+            }
+            catch { }
+        }
+
         public ReedAndShepp(double radius) : this(radius, null) { }
         public ReedAndShepp(double radius, string folder)
         {
-            if (folder != null)
-                Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH") + ";" + Path.GetFullPath(folder));
+            SetDllFolder(folder);
             if (/*Environment.Is64BitProcess*/IntPtr.Size == 8)
             {
                 reed_shepp = X64.reed_shepp;

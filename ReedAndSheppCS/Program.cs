@@ -10,7 +10,7 @@ namespace ReedAndShepp
     {
         static void Main(string[] args)
         {
-            ReedAndShepp ras = new ReedAndShepp(1.0);
+            ReedAndShepp ras = new ReedAndShepp(5.0);
             ReedAndShepp.Vector3[] path;
             Console.WriteLine(ras.ComputeCurve(new ReedAndShepp.Vector3(0, 0, 0), new ReedAndShepp.Vector3(1, 1, 0), 0.1, out path));
             foreach (ReedAndShepp.Vector3 v in path)
