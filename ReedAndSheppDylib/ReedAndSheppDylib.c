@@ -86,7 +86,7 @@ double RADCURVMUL4 = 4.0;
 double SQRADCURV = 1.0;
 double SQRADCURVMUL2 = 4.0;
 
-//EXPORT
+EXPORT
 void change_radcurv(double radcurv)
 {
 	RADCURV = radcurv;
@@ -113,13 +113,13 @@ double my_atan2(double y, double x)
 	if (x == 0.0)
 		if (y > 0) return MPIDIV2;
 		else return -MPIDIV2;
-		a = atan(y / x);
-		if (a > 0.0)
-			if (x > 0) return a;
-			else return (a + MPI);
-		else
-			if (x > 0) return (a + MPIMUL2);
-			else return (a + MPI);
+	a = atan(y / x);
+	if (a > 0.0)
+		if (x > 0) return a;
+		else return (a + MPI);
+	else
+		if (x > 0) return (a + MPIMUL2);
+		else return (a + MPI);
 }
 
 
@@ -382,8 +382,7 @@ double csc2_cb(double x, double y, double phi, double rs, double rc, double* t, 
 
 
 /***********************************************************/
-
-//EXPORT
+EXPORT
 double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2, int* numero, double* tr, double* ur, double* vr)
 {
 	double x, y, phi;
@@ -844,8 +843,8 @@ int fct_curve(int ty, int orientation, double val, double* x1, double* y1, doubl
 
 	if (ty == 3)
 		if (fabs(val / RADCURV)<EPS4) return(0);
-		else
-			if (fabs(val)<EPS4) return(0);
+	else
+		if (fabs(val)<EPS4) return(0);
 
 	switch (ty)
 	{
@@ -974,7 +973,7 @@ int fct_curve(int ty, int orientation, double val, double* x1, double* y1, doubl
 
 
 /***********************************************************/
-//EXPORT
+EXPORT
 int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
 {
 	int left, right, straight, fwd, bwd;
@@ -1337,6 +1336,3 @@ int constRS(int num, double t, double u, double v, double x1, double y1, double 
 
 	return n;
 }
-
-
-
