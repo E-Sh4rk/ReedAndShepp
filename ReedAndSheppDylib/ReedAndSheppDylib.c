@@ -1,12 +1,11 @@
-// ReedAndSheppDll.cpp : définit les fonctions //EXPORTées pour l'application DLL.
+// ReedAndSheppDll.cpp : définit les fonctions exportées pour l'application DLL.
 //
 
 #include <stdio.h>
 #include <math.h>
 
-#define //EXPORT __attribute__((visibility("default")))
+#define EXPORT __attribute__((visibility("default")))
 
-/*
 // Initializer.
 __attribute__((constructor))
 static void initializer(void) {                             // 2
