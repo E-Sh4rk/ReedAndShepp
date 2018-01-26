@@ -48,13 +48,5 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReedAndShepp.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="ReedAndSheppDll.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReedAndSheppDll64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
