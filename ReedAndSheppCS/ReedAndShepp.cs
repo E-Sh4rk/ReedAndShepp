@@ -12,60 +12,86 @@ namespace ReedAndShepp
         static class X86
         {
             // double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2, int* numero, double* tr, double* ur, double* vr)
-            [DllImport("ReedAndSheppDll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
             // int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
-            [DllImport("ReedAndSheppDll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
 
             // void change_radcurv(double radcurv)
-            [DllImport("ReedAndSheppDll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern void change_radcurv(double radcurv);
 
             // --- MAC ---
 
-            [DllImport("ReedAndSheppDll.dylib", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dylib", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern double mac_reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
-            [DllImport("ReedAndSheppDll.dylib", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dylib", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int mac_constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
 
-            [DllImport("ReedAndSheppDll.dylib", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp.dylib", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern void mac_change_radcurv(double radcurv);
+
+            // --- LINUX ---
+
+            [DllImport("ReedAndShepp.so", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double linux_reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
+                out int numero, out double tr, out double ur, out double vr);
+
+            [DllImport("ReedAndShepp.so", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern int linux_constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
+                double[] pathx, double[] pathy, double[] patht);
+
+            [DllImport("ReedAndShepp.so", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void linux_change_radcurv(double radcurv);
         }
         static class X64
         {
             // double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2, int* numero, double* tr, double* ur, double* vr)
-            [DllImport("ReedAndSheppDll64", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern double reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
             // int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta, double* pathx, double* pathy, double* patht)
-            [DllImport("ReedAndSheppDll64", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
 
             // void change_radcurv(double radcurv)
-            [DllImport("ReedAndSheppDll64", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dll", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern void change_radcurv(double radcurv);
 
             // --- MAC ---
 
-            [DllImport("ReedAndSheppDll64.dylib", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dylib", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern double mac_reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
                 out int numero, out double tr, out double ur, out double vr);
 
-            [DllImport("ReedAndSheppDll64.dylib", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dylib", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern int mac_constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
                 double[] pathx, double[] pathy, double[] patht);
 
-            [DllImport("ReedAndSheppDll64.dylib", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("ReedAndShepp64.dylib", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
             public static extern void mac_change_radcurv(double radcurv);
+
+            // --- LINUX ---
+
+            [DllImport("ReedAndShepp64.so", EntryPoint = "reed_shepp", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double linux_reed_shepp(double x1, double y1, double t1, double x2, double y2, double t2,
+                out int numero, out double tr, out double ur, out double vr);
+
+            [DllImport("ReedAndShepp64.so", EntryPoint = "constRS", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern int linux_constRS(int num, double t, double u, double v, double x1, double y1, double t1, double delta,
+                double[] pathx, double[] pathy, double[] patht);
+
+            [DllImport("ReedAndShepp64.so", EntryPoint = "change_radcurv", SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void linux_change_radcurv(double radcurv);
         }
 
         delegate double RS(double x1, double y1, double t1, double x2, double y2, double t2,
@@ -102,9 +128,9 @@ namespace ReedAndShepp
                 folder = Path.GetFullPath(folder);
                 if (IsLinux)
                 {
-                    string current_path = Environment.GetEnvironmentVariable("PATH");
+                    string current_path = Environment.GetEnvironmentVariable("LD_LIBRARY_PATH");
                     if (!current_path.Contains(folder))
-                        Environment.SetEnvironmentVariable("PATH", current_path + ":" + folder);
+                        Environment.SetEnvironmentVariable("LD_LIBRARY_PATH", current_path + ":" + folder);
                 }
                 else if (IsMac)
                 {
@@ -128,7 +154,13 @@ namespace ReedAndShepp
             SetDllFolder(folder);
             if (/*Environment.Is64BitProcess*/IntPtr.Size == 8)
             {
-                if (IsMac)
+                if (IsLinux)
+                {
+                    reed_shepp = X64.linux_reed_shepp;
+                    constRS = X64.linux_constRS;
+                    X64.linux_change_radcurv(radius);
+                }
+                else if (IsMac)
                 {
                     reed_shepp = X64.mac_reed_shepp;
                     constRS = X64.mac_constRS;
@@ -143,7 +175,13 @@ namespace ReedAndShepp
             }
             else
             {
-                if (IsMac)
+                if (IsLinux)
+                {
+                    reed_shepp = X86.linux_reed_shepp;
+                    constRS = X86.linux_constRS;
+                    X86.linux_change_radcurv(radius);
+                }
+                else if (IsMac)
                 {
                     reed_shepp = X86.mac_reed_shepp;
                     constRS = X86.mac_constRS;
