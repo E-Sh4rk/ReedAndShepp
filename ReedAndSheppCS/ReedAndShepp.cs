@@ -198,16 +198,16 @@ namespace ReedAndShepp
 
         public struct Vector3
         {
-            public Vector3(float x, float y, float z)
+            public Vector3(double x, double y, double z)
             {
                 this.x = x; this.y = y; this.z = z;
             }
-            public float x;
-            public float y;
-            public float z;
+            public double x;
+            public double y;
+            public double z;
             public Vector3 Floor(int nb_dec)
             {
-                float mult = (int)Math.Pow(10, nb_dec);
+                double mult = (int)Math.Pow(10, nb_dec);
                 int _x = (int)(x * mult);
                 int _y = (int)(y * mult);
                 int _z = (int)(z * mult);
@@ -227,7 +227,7 @@ namespace ReedAndShepp
             int pathlen = constRS(num, tr, ur, vr, init.x, init.y, init.z, delta, pathx, pathy, pathz);
             path = new Vector3[pathlen];
             for (int i = 0; i < pathlen; i++)
-                path[i] = new Vector3((float)pathx[i], (float)pathy[i], (float)pathz[i]);
+                path[i] = new Vector3(pathx[i], pathy[i], pathz[i]);
             return length;
         }
     }
