@@ -101,6 +101,7 @@ namespace ReedAndShepp
 
         RS reed_shepp;
         cRS constRS;
+        double radius;
 
         public static bool IsLinux
         {
@@ -152,6 +153,7 @@ namespace ReedAndShepp
         public ReedAndShepp(double radius, string folder)
         {
             SetDllFolder(folder);
+            this.radius = radius;
             if (/*Environment.Is64BitProcess*/IntPtr.Size == 8)
             {
                 if (IsLinux)
@@ -213,6 +215,23 @@ namespace ReedAndShepp
                 int _z = (int)(z * mult);
                 return new Vector3(_x/mult, _y/mult, _z/mult);
             }
+            public bool Equals(Vector3 v)
+            {
+                return v.x == x && v.y == y && v.z == z;
+            }
+            public double spatialLength()
+            {
+                return Math.Sqrt(x*x+y*y);
+            }
+            public double normalizedAngle()
+            {
+                double res = z;
+                while (res < 0)
+                    res += 2 * Math.PI;
+                while (res >= 2 * Math.PI)
+                    res -= 2 * Math.PI;
+                return res;
+            }
         }
 
         public double ComputeCurve(Vector3 init, Vector3 target, double delta, out Vector3[] path)
@@ -220,6 +239,35 @@ namespace ReedAndShepp
             int num;
             double tr, ur, vr;
             double length = reed_shepp(init.x, init.y, init.z, target.x, target.y, target.z, out num, out tr, out ur, out vr);
+            int maxlen = (int)(length / delta) + 5;
+            double[] pathx = new double[maxlen];
+            double[] pathy = new double[maxlen];
+            double[] pathz = new double[maxlen];
+            int pathlen = constRS(num, tr, ur, vr, init.x, init.y, init.z, delta, pathx, pathy, pathz);
+            path = new Vector3[pathlen];
+            for (int i = 0; i < pathlen; i++)
+                path[i] = new Vector3(pathx[i], pathy[i], pathz[i]);
+            return length;
+        }
+        public double ComputeCurveWithAutoDelta(Vector3 init, Vector3 target, double delta_max, out Vector3[] path)
+        {
+            if (init.Equals(target))
+                return ComputeCurve(init, target, delta_max, out path);
+            double l1 = (new Vector3(target.x-init.x,target.y-init.y,target.z-init.z)).spatialLength();
+            double l2 = Math.Abs(target.normalizedAngle() - init.normalizedAngle());
+            l2 = Math.Min(l2, 2 * Math.PI - l2);
+            l2 *= radius;
+            double delta = (l1+l2)/2;
+            delta = Math.Min(delta_max, delta);
+            return ComputeCurve(init, target, delta, out path);
+        }
+
+        public double ComputeCurveWithAutoDelta2(Vector3 init, Vector3 target, double delta_max, out Vector3[] path)
+        {
+            int num;
+            double tr, ur, vr;
+            double length = reed_shepp(init.x, init.y, init.z, target.x, target.y, target.z, out num, out tr, out ur, out vr);
+            double delta = length > 0 ? Math.Min(delta_max, length/5) : delta_max;
             int maxlen = (int)(length / delta) + 5;
             double[] pathx = new double[maxlen];
             double[] pathy = new double[maxlen];
