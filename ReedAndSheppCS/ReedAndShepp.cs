@@ -107,16 +107,28 @@ namespace ReedAndShepp
         {
             get
             {
-                int p = (int)Environment.OSVersion.Platform;
-                return (p == 4) || (p == 128);
+                if (!IsMacOrLinux)
+                    return false;
+                return !IsMac;
             }
         }
         public static bool IsMac
         {
             get
             {
+                if ((int)Environment.OSVersion.Platform == 6)
+                    return true;
+                if (!IsMacOrLinux)
+                    return false;
+                return Directory.Exists("/Library") && Directory.Exists("/Volumes");
+            }
+        }
+        public static bool IsMacOrLinux
+        {
+            get
+            {
                 int p = (int)Environment.OSVersion.Platform;
-                return (p == 6);
+                return (p == 6) || (p == 4) || (p == 128);
             }
         }
 
