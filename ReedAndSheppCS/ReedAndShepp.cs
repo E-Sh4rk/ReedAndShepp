@@ -267,7 +267,7 @@ namespace ReedAndShepp
             int num;
             double tr, ur, vr;
             double length = reed_shepp(init.x, init.y, init.z, target.x, target.y, target.z, out num, out tr, out ur, out vr);
-            double delta = length > 0 ? Math.Min(delta_max, length/5) : delta_max;
+            double delta = length > 0 ? Math.Min(delta_max, length/10) : delta_max;
             int maxlen = (int)(length / delta) + 5;
             double[] pathx = new double[maxlen];
             double[] pathy = new double[maxlen];
